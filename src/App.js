@@ -7,6 +7,7 @@ import { Form, Button, Container, ListGroup } from "react-bootstrap";
 import AddTodo from "./Components/AddTodo/AddTodo";
 import SearchTodo from "./Components/SearchTodo/SearchTodo";
 import TodoList from "./Components/TodoList/TodoList";
+import User from "./Components/User";
 function App() {
   const [newTodo, setnewToDo] = useState([
     {
@@ -77,6 +78,8 @@ function App() {
         item.completed = !item.completed;
       }
     });
+    setTodoItems(todoItems);
+    console.log(todoItems);
   };
 
   return (
@@ -96,6 +99,9 @@ function App() {
         handleDeleteClick={handleDeleteClick}
         handleDoneClick={handleDoneClick}
       ></TodoList>
+
+      <h3>Total Users</h3>
+      <User></User>
     </Container>
   );
 }
