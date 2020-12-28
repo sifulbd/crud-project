@@ -31,6 +31,7 @@ function App() {
     setnewToDo({ text: newValue, completed: false });
     e.preventDefault();
   };
+
   const handleAddClick = (e) => {
     if (newTodo.text !== "") {
       setTodoItems((prevValue) => {
@@ -73,13 +74,31 @@ function App() {
   };
 
   const handleDoneClick = (idx) => {
-    const reamingingItem = todoItems.map((item) => {
+    console.log(idx);
+    todoItems.filter((item) => {
       if (idx === item.id) {
+        console.log(item);
         item.completed = !item.completed;
+
+        const url = `http://127.0.0.1:5000/update/${idx}`;
+        fetch(url, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(item),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.changedRows > 0) {
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        setTodoItems(todoItems);
       }
     });
-    setTodoItems(todoItems);
-    console.log(todoItems);
   };
 
   return (

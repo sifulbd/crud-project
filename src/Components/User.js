@@ -37,8 +37,7 @@ class User extends React.Component {
           console.log("added items");
         }
       });
-    // this.setState("");
-    console.log(user);
+    this.setState({ name: "", email: "" });
     event.preventDefault();
   }
 

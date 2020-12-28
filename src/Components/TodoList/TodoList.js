@@ -8,7 +8,12 @@ const TodoList = ({ handleDeleteClick, todoItems, handleDoneClick }) => {
         {todoItems
           ? todoItems.map((todoitem, index) => (
               <ListGroup.Item variant="no-style" id={todoitem.id} key={index}>
-                {todoitem.text ? todoitem.text : ""}
+                {todoitem.completed ? (
+                  <b className="done">{todoitem.text}</b>
+                ) : (
+                  <b>{todoitem.text}</b>
+                )}
+
                 <span>
                   <Button
                     onClick={(id) =>
@@ -18,7 +23,7 @@ const TodoList = ({ handleDeleteClick, todoItems, handleDoneClick }) => {
                     }
                     variant="success"
                   >
-                    Done
+                    {todoitem.completed ? "Undone" : "Done"}
                   </Button>
                   <Button
                     onClick={(id) =>
