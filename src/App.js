@@ -33,10 +33,9 @@ function App() {
   };
 
   const handleAddClick = (e) => {
-    if (newTodo.text !== "") {
-      setTodoItems((prevValue) => {
-        return [...prevValue, newTodo];
-      });
+    if (newTodo.text === "") {
+      alert("fields is empty");
+      return;
     }
     fetch("http://localhost:5000/addtodo", {
       method: "POST",
@@ -48,9 +47,13 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         if (data.affectedRows > 0) {
+          setTodoItems((prevValue) => {
+            return [...prevValue, newTodo];
+          });
         }
       });
     setnewToDo({ text: "" });
+
     e.preventDefault();
   };
 
@@ -63,43 +66,79 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         if (data.affectedRows > 0) {
+          setTodoItems((previousItem) => {
+            const reamingingItem = previousItem.filter((item) => {
+              return idx !== item.id;
+            });
+            return reamingingItem;
+          });
         }
       });
-    setTodoItems((previousItem) => {
-      const reamingingItem = previousItem.filter((item) => {
-        return idx !== item.id;
-      });
-      return reamingingItem;
-    });
   };
 
   const handleDoneClick = (idx) => {
-    console.log(idx);
-    todoItems.filter((item) => {
-      if (idx === item.id) {
-        console.log(item);
-        item.completed = !item.completed;
+    const findItem = todoItems.find((item) => item.id === idx);
+    console.log(findItem);
+    findItem.completed = !findItem.completed;
 
-        const url = `http://127.0.0.1:5000/update/${idx}`;
-        fetch(url, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(item),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.changedRows > 0) {
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        setTodoItems(todoItems);
-      }
-    });
+    let newArr = [...todoItems]; // copying the old datas array
+    newArr[index] = e.target.value; // replace e.target.value with whatever you want to change it to
+
+    setDatas(newArr); // ??
+
+    // const updatedItem = todoItems.filter((item) => {
+    //   if (item.id === idx) {
+    //     item.completed = !item.completed;
+    //     // const url = `http://127.0.0.1:5000/update/${idx}`;
+    //     // fetch(url, {
+    //     //   method: "PUT",
+    //     //   headers: {
+    //     //     "Content-Type": "application/json",
+    //     //   },
+    //     //   body: JSON.stringify(item),
+    //     // })
+    //     //   .then((res) => res.json())
+    //     //   .then((data) => {
+    //     //     if (data.changedRows > 0) {
+
+    //     //     }
+    //     //   })
+    //     //   .catch((err) => {
+    //     //     console.log(err);
+    //     //   });
+    //   }
+    //   return item;
+    // });
+
+    // setTodoItems(updatedItem);
   };
+
+  const a = {
+    name: "Saiful",
+    address: {
+      city: "",
+      country: "",
+      mobile: [],
+      contacts: [
+        {
+          name: "Aminul",
+          relation: "",
+        },
+      ],
+    },
+  };
+
+  const b = { ...a };
+
+  b.name = "Islam";
+
+  console.log(a);
+  console.log(b);
+
+  let b = a;
+  b.name = "Aminul";
+
+  console.log(a);
 
   return (
     <Container>
