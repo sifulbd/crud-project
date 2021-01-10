@@ -28,6 +28,7 @@ function App() {
 
   const handleChange = (e) => {
     const newValue = e.target.value;
+
     setnewToDo({ text: newValue, completed: false });
     e.preventDefault();
   };
