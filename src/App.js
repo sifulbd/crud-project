@@ -81,10 +81,10 @@ function App() {
     console.log(findItem);
     findItem.completed = !findItem.completed;
 
-    let newArr = [...todoItems]; // copying the old datas array
-    newArr[index] = e.target.value; // replace e.target.value with whatever you want to change it to
+    // let newArr = [...todoItems]; // copying the old datas array
+    // newArr[index] = e.target.value; // replace e.target.value with whatever you want to change it to
 
-    setDatas(newArr); // ??
+    // setDatas(newArr); // ??
 
     // const updatedItem = todoItems.filter((item) => {
     //   if (item.id === idx) {
@@ -113,32 +113,44 @@ function App() {
     // setTodoItems(updatedItem);
   };
 
-  const a = {
-    name: "Saiful",
-    address: {
-      city: "",
-      country: "",
-      mobile: [],
-      contacts: [
-        {
-          name: "Aminul",
-          relation: "",
-        },
-      ],
-    },
+  const personIndex = this.state.persons.findIndex((p) => {
+    return p.id;
+  });
+  const person = {
+    ...this.state.persons[personIndex],
   };
 
-  const b = { ...a };
+  person.name = event.target.value;
 
-  b.name = "Islam";
+  const persons = [...this.state.persons];
+  persons[personIndex] = person;
 
-  console.log(a);
-  console.log(b);
+  // const a = {
+  //   name: "Saiful",
+  //   address: {
+  //     city: "",
+  //     country: "",
+  //     mobile: [],
+  //     contacts: [
+  //       {
+  //         name: "Aminul",
+  //         relation: "",
+  //       },
+  //     ],
+  //   },
+  // };
 
-  let b = a;
-  b.name = "Aminul";
+  // const b = { ...a };
 
-  console.log(a);
+  // b.name = "Islam";
+
+  // console.log(a);
+  // console.log(b);
+
+  // let b = a;
+  // b.name = "Aminul";
+
+  // console.log(a);
 
   return (
     <Container>
